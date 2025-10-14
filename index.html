@@ -1,0 +1,2643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindLift - Your Safe Space for Mental Health Support</title>
+    <meta name="description" content="Digital-first mental health support for Indian students. Anonymous, stigma-free, culturally sensitive, always available.">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Page Navigation System */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e5e7eb;
+            z-index: 1000;
+            padding: 16px 0;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .brand-title {
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #374151;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #f3f4f6;
+            color: #3b82f6;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+            display: none;
+            z-index: 1001;
+        }
+
+        .user-dropdown.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .dropdown-item:hover {
+            background: #f9fafb;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .auth-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .auth-btn.login {
+            background: transparent;
+            color: #3b82f6;
+            border: 2px solid #3b82f6;
+        }
+
+        .auth-btn.register {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+        }
+
+        .emergency-btn {
+            background: #dc2626;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .emergency-btn:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #dbeafe, #e0e7ff, #fce7f3);
+            padding-top: 120px;
+            padding-bottom: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: #6b7280;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .cta-btn.primary {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+        }
+
+        .cta-btn.secondary {
+            background: white;
+            color: #3b82f6;
+            border: 2px solid #3b82f6;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            margin-top: 60px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 32px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        /* Four Pillars Section */
+        .pillars-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .pillar-card {
+            background: white;
+            border-radius: 24px;
+            padding: 40px 32px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pillar-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: var(--pillar-gradient);
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            border-color: var(--pillar-color);
+        }
+
+        .pillar-card.confide {
+            --pillar-gradient: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            --pillar-color: #3b82f6;
+        }
+
+        .pillar-card.connect {
+            --pillar-gradient: linear-gradient(135deg, #10b981, #059669);
+            --pillar-color: #10b981;
+        }
+
+        .pillar-card.care {
+            --pillar-gradient: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            --pillar-color: #8b5cf6;
+        }
+
+        .pillar-card.grow {
+            --pillar-gradient: linear-gradient(135deg, #f59e0b, #d97706);
+            --pillar-color: #f59e0b;
+        }
+
+        .pillar-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            margin: 0 auto 24px;
+            background: var(--pillar-gradient);
+        }
+
+        .pillar-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #1f2937;
+            text-align: center;
+        }
+
+        .pillar-subtitle {
+            font-size: 14px;
+            color: #6b7280;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .pillar-description {
+            color: #6b7280;
+            margin-bottom: 24px;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .pillar-features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .pillar-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #374151;
+        }
+
+        .pillar-features i {
+            width: 16px;
+            color: var(--pillar-color);
+        }
+
+        .pillar-btn {
+            width: 100%;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            color: white;
+            background: var(--pillar-gradient);
+        }
+
+        .pillar-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Sections */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section:nth-child(even) {
+            background: #f9fafb;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-header h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            font-size: 18px;
+            color: #6b7280;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Game Styles */
+        .game-container {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            margin-bottom: 32px;
+        }
+
+        .game-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .game-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .game-description {
+            color: #6b7280;
+            font-size: 16px;
+        }
+
+        .breathing-circle {
+            width: 200px;
+            height: 200px;
+            border: 4px solid #3b82f6;
+            border-radius: 50%;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: #3b82f6;
+            transition: all 4s ease;
+        }
+
+        .breathing-circle.inhale {
+            transform: scale(1.3);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .breathing-circle.exhale {
+            transform: scale(1);
+            background: transparent;
+        }
+
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            max-width: 320px;
+            margin: 0 auto 24px;
+        }
+
+        .memory-card {
+            width: 70px;
+            height: 70px;
+            background: #f3f4f6;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .memory-card:hover {
+            transform: scale(1.05);
+        }
+
+        .memory-card.flipped {
+            background: #dbeafe;
+            border-color: #3b82f6;
+        }
+
+        .memory-card.matched {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+
+        .mood-tracker {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .mood-emoji {
+            font-size: 48px;
+            cursor: pointer;
+            padding: 12px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .mood-emoji:hover {
+            transform: scale(1.2);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .mood-emoji.selected {
+            background: #3b82f6;
+            transform: scale(1.2);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 16px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-select:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-textarea:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .form-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #3b82f6;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+            border: 1px solid #e5e7eb;
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #16a34a, #15803d);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Dashboard Styles */
+        .dashboard-section {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .dashboard-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .stat-item {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #3b82f6;
+            margin-bottom: 8px;
+        }
+
+        .stat-name {
+            font-size: 14px;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .history-item {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .history-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .history-title {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .history-date {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .history-status {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-confirmed {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-active {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-completed {
+            background: #f3e8ff;
+            color: #7c3aed;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 32px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: #3b82f6;
+            color: white;
+            padding: 16px 20px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            z-index: 3000;
+            max-width: 400px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: #10b981;
+        }
+
+        .notification.warning {
+            background: #f59e0b;
+        }
+
+        .notification.error {
+            background: #ef4444;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-nav {
+                display: none;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .pillars-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .header-actions {
+                gap: 8px;
+            }
+
+            .auth-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            .memory-grid {
+                grid-template-columns: repeat(3, 1fr);
+                max-width: 240px;
+            }
+
+            .memory-card {
+                width: 60px;
+                height: 60px;
+                font-size: 20px;
+            }
+
+            .brand-title {
+                height: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <img src="https://uploads.onecompiler.io/42sycu8qc/43xwrjhhh/logo%20.jpg" alt="MindLift Logo" class="logo">
+                <img src="https://uploads.onecompiler.io/42sycu8qc/43xwrjhhh/mindlift%20tital.jpg" alt="MindLift" class="brand-title">
+            </div>
+            
+            <nav class="main-nav">
+                <span class="nav-link active" onclick="showPage('home')">Home</span>
+                <span class="nav-link" onclick="showPage('features')">Features</span>
+                <span class="nav-link" onclick="showPage('community')">Community</span>
+                <span class="nav-link" onclick="showPage('consultation')">Consultation</span>
+                <span class="nav-link" onclick="showPage('wellness')">Wellness</span>
+            </nav>
+            
+            <div class="header-actions">
+                <div id="authSection" class="auth-buttons">
+                    <button class="auth-btn login" onclick="showLoginModal()">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                    <button class="auth-btn register" onclick="showRegisterModal()">
+                        <i class="fas fa-user-plus"></i> Register
+                    </button>
+                </div>
+                
+                <div id="userSection" class="user-menu" style="display: none;">
+                    <div class="user-avatar" onclick="toggleUserDropdown()" id="userAvatar">
+                        U
+                    </div>
+                    <div class="user-dropdown" id="userDropdown">
+                        <div class="dropdown-item" onclick="showPage('dashboard')">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </div>
+                        <div class="dropdown-item" onclick="showPage('profile')">
+                            <i class="fas fa-user"></i> Profile
+                        </div>
+                        <div class="dropdown-item" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="emergency-btn" onclick="showEmergencyModal()">
+                    <i class="fas fa-phone"></i> Emergency
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page active">
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="gradient-text">Your Safe Space</span><br>
+                        <span>Anytime. Anywhere.</span>
+                    </h1>
+                    
+                    <p class="hero-subtitle">
+                        A digital-first mental health support system for Indian students. 
+                        Private, stigma-free, culturally sensitive, always available.
+                    </p>
+
+                    <div class="hero-cta">
+                        <button class="cta-btn primary" onclick="checkAuthAndNavigate('features')">Start Your Journey</button>
+                        <button class="cta-btn secondary" onclick="showPage('community')">Join Community</button>
+                    </div>
+                </div>
+
+                <div class="stats-section">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number">10,000+</div>
+                            <div class="stat-label">Students Supported</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-label">Available Support</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">12+</div>
+                            <div class="stat-label">Languages Supported</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Anonymous & Private</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Four Pillars of Support -->
+        <section class="pillars-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Four Pillars of Support</h2>
+                    <p>Our comprehensive approach to mental health support is built on four foundational pillars, each designed to meet you where you are in your journey.</p>
+                </div>
+                
+                <div class="pillars-grid">
+                    <!-- Confide Pillar -->
+                    <div class="pillar-card confide">
+                        <div class="pillar-icon">
+                            <i class="fas fa-user-secret"></i>
+                        </div>
+                        <h3 class="pillar-title">Confide</h3>
+                        <div class="pillar-subtitle">Anonymous & Private</div>
+                        <p class="pillar-description">
+                            Your thoughts and feelings matter, but sharing them shouldn't feel scary. Our anonymous support system ensures you can express yourself freely without judgment or fear of stigma.
+                        </p>
+                        <ul class="pillar-features">
+                            <li><i class="fas fa-check"></i> Anonymous AI Chatbot: 24/7 support with culturally sensitive responses</li>
+                            <li><i class="fas fa-check"></i> Mood Journals: Private space to track your emotional journey</li>
+                            <li><i class="fas fa-check"></i> Confession Box: Share your deepest concerns anonymously</li>
+                            <li><i class="fas fa-check"></i> Multi-language Support: Express yourself in your native language</li>
+                        </ul>
+                        <button class="pillar-btn" onclick="checkAuthAndNavigate('features')">Start Confiding</button>
+                    </div>
+
+                    <!-- Connect Pillar -->
+                    <div class="pillar-card connect">
+                        <div class="pillar-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="pillar-title">Connect</h3>
+                        <div class="pillar-subtitle">Community & Support</div>
+                        <p class="pillar-description">
+                            Mental health challenges can feel isolating, but you're not alone. Connect with a supportive community of peers who understand your experiences and can offer genuine support and friendship.
+                        </p>
+                        <ul class="pillar-features">
+                            <li><i class="fas fa-check"></i> Peer Support Forums: Moderated discussions on various topics</li>
+                            <li><i class="fas fa-check"></i> Study Groups: Academic support with mental health awareness</li>
+                            <li><i class="fas fa-check"></i> Interest Communities: Connect over shared hobbies and interests</li>
+                            <li><i class="fas fa-check"></i> Safe Spaces: Strictly moderated environment free from judgment</li>
+                        </ul>
+                        <button class="pillar-btn" onclick="showPage('community')">Join Community</button>
+                    </div>
+
+                    <!-- Care Pillar -->
+                    <div class="pillar-card care">
+                        <div class="pillar-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3 class="pillar-title">Care</h3>
+                        <div class="pillar-subtitle">Professional Support</div>
+                        <p class="pillar-description">
+                            Sometimes you need professional support, and that's completely normal. Our network of qualified mental health professionals provides confidential, culturally sensitive care when you need it most.
+                        </p>
+                        <ul class="pillar-features">
+                            <li><i class="fas fa-check"></i> Professional Counselors: Licensed therapists and psychologists</li>
+                            <li><i class="fas fa-check"></i> Crisis Support: Immediate help during mental health emergencies</li>
+                            <li><i class="fas fa-check"></i> Flexible Sessions: Online, phone, or in-person options</li>
+                            <li><i class="fas fa-check"></i> Anonymous Options: Professional help without revealing identity</li>
+                        </ul>
+                        <button class="pillar-btn" onclick="showPage('consultation')">Book Session</button>
+                    </div>
+
+                    <!-- Grow Pillar -->
+                    <div class="pillar-card grow">
+                        <div class="pillar-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <h3 class="pillar-title">Grow</h3>
+                        <div class="pillar-subtitle">Wellness & Progress</div>
+                        <p class="pillar-description">
+                            Mental health is a journey, not a destination. Our interactive wellness tools help you build resilience, track progress, and celebrate every step forward in your mental health journey.
+                        </p>
+                        <ul class="pillar-features">
+                            <li><i class="fas fa-check"></i> Stress Relief Games: Fun activities to reduce anxiety and stress</li>
+                            <li><i class="fas fa-check"></i> Progress Tracking: Monitor your mental health journey</li>
+                            <li><i class="fas fa-check"></i> Achievement System: Celebrate milestones and progress</li>
+                            <li><i class="fas fa-check"></i> Wellness Exercises: Guided meditation and mindfulness</li>
+                        </ul>
+                        <button class="pillar-btn" onclick="showPage('wellness')">Start Growing</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- FEATURES PAGE -->
+    <div id="features" class="page">
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="gradient-text">AI Mental Health Support</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Chat with our AI companion for instant, anonymous support in your preferred language.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div style="background: white; border: 2px solid #3b82f6; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 30px rgba(59, 130, 246, 0.2); max-width: 800px; margin: 0 auto;">
+                    <div style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: white; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <i class="fas fa-robot"></i>
+                            <span style="font-weight: 600;">Anonymous AI Companion</span>
+                        </div>
+                        <span style="background: rgba(255, 255, 255, 0.2); padding: 4px 12px; border-radius: 12px; font-size: 12px;">Online</span>
+                    </div>
+                    
+                    <div id="chatMessages" style="height: 400px; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 16px;">
+                        <div style="max-width: 85%; padding: 12px 16px; border-radius: 16px; background: #f3f4f6; color: #374151; align-self: flex-start;">
+                            <p>नमस्ते! ನಮಸ್ಕಾರ! I'm your anonymous AI companion. I'm here to listen and support you in English, Hindi, Kannada, and other Indian languages. How are you feeling today?</p>
+                        </div>
+                    </div>
+                    
+                    <div style="padding: 20px; border-top: 1px solid #e5e7eb; display: flex; gap: 12px;">
+                        <input type="text" id="messageInput" style="flex: 1; padding: 12px 16px; border: 1px solid #e5e7eb; border-radius: 10px; font-size: 14px; outline: none;" placeholder="Share what's on your mind..." onkeypress="handleChatKeyPress(event)">
+                        <button onclick="sendMessage()" style="padding: 12px 16px; background: #3b82f6; color: white; border: none; border-radius: 10px; cursor: pointer; transition: all 0.3s ease;">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- COMMUNITY PAGE -->
+    <div id="community" class="page">
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="gradient-text">Connect with Peers</span><br>
+                        <span>Who Understand</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Join a supportive community of Indian students who share similar experiences.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Community Spaces</h2>
+                    <p>Find your tribe in our safe, moderated community spaces</p>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 32px;">
+                    <div style="background: white; border-radius: 20px; padding: 32px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; border: 2px solid #e5e7eb;">
+                        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #16a34a, #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; color: white; margin: 0 auto 24px;">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h4 style="font-size: 20px; font-weight: 700; margin-bottom: 16px; color: #1f2937;">Academic Support Group</h4>
+                        <p style="color: #6b7280; margin-bottom: 20px; line-height: 1.6;">Connect with fellow students dealing with academic stress, exam anxiety, and study challenges.</p>
+                        <div style="background: #f0fdf4; color: #166534; padding: 8px 16px; border-radius: 20px; font-size: 14px; font-weight: 600; margin-bottom: 20px; display: inline-block;">2,847 members</div>
+                        <button onclick="joinCommunity('Academic Support Group')" style="background: linear-gradient(135deg, #16a34a, #059669); color: white; padding: 12px 24px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; width: 100%;">Join Group</button>
+                    </div>
+                    
+                    <div style="background: white; border-radius: 20px; padding: 32px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; border: 2px solid #e5e7eb;">
+                        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #16a34a, #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; color: white; margin: 0 auto 24px;">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h4 style="font-size: 20px; font-weight: 700; margin-bottom: 16px; color: #1f2937;">Anxiety & Depression Support</h4>
+                        <p style="color: #6b7280; margin-bottom: 20px; line-height: 1.6;">Share experiences and coping strategies with others who understand mental health challenges.</p>
+                        <div style="background: #f0fdf4; color: #166534; padding: 8px 16px; border-radius: 20px; font-size: 14px; font-weight: 600; margin-bottom: 20px; display: inline-block;">3,156 members</div>
+                        <button onclick="joinCommunity('Anxiety & Depression Support')" style="background: linear-gradient(135deg, #16a34a, #059669); color: white; padding: 12px 24px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; width: 100%;">Join Group</button>
+                    </div>
+                    
+                    <div style="background: white; border-radius: 20px; padding: 32px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; border: 2px solid #e5e7eb;">
+                        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #16a34a, #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; color: white; margin: 0 auto 24px;">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h4 style="font-size: 20px; font-weight: 700; margin-bottom: 16px; color: #1f2937;">Career & Future Planning</h4>
+                        <p style="color: #6b7280; margin-bottom: 20px; line-height: 1.6;">Navigate career choices, job market stress, and future planning with peer support.</p>
+                        <div style="background: #f0fdf4; color: #166534; padding: 8px 16px; border-radius: 20px; font-size: 14px; font-weight: 600; margin-bottom: 20px; display: inline-block;">2,234 members</div>
+                        <button onclick="joinCommunity('Career & Future Planning')" style="background: linear-gradient(135deg, #16a34a, #059669); color: white; padding: 12px 24px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; width: 100%;">Join Group</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- CONSULTATION PAGE -->
+    <div id="consultation" class="page">
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="gradient-text">Professional Mental Health</span><br>
+                        <span>Consultation Services</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Connect with qualified mental health professionals who understand Indian culture and student challenges.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Choose Your Consultation Type</h2>
+                    <p>We offer flexible options to meet your comfort level and needs</p>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 32px;">
+                    <div style="background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); transition: all 0.4s ease; border: 3px solid #3b82f6;">
+                        <div style="padding: 32px 32px 24px; text-align: center; background: linear-gradient(135deg, #dbeafe, #bfdbfe);">
+                            <div style="width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; color: white; margin: 0 auto 24px; background: linear-gradient(135deg, #3b82f6, #1d4ed8);">
+                                <i class="fas fa-user-secret"></i>
+                            </div>
+                            <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 16px; color: #1f2937;">Anonymous Online Session</h3>
+                            <div style="font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #1e40af;">₹500-800 <span style="font-size: 16px; font-weight: 500; color: #6b7280;">per session</span></div>
+                        </div>
+                        
+                        <div style="padding: 0 32px 32px;">
+                            <p style="margin-bottom: 24px;">Complete privacy with professional support. No identity required - just get the help you need.</p>
+                            
+                            <ul style="list-style: none; margin-bottom: 32px;">
+                                <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 14px; color: #374151;">
+                                    <i class="fas fa-check" style="width: 16px; color: #10b981;"></i> No name or personal details required
+                                </li>
+                                <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 14px; color: #374151;">
+                                    <i class="fas fa-check" style="width: 16px; color: #10b981;"></i> Voice or video call options
+                                </li>
+                                <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 14px; color: #374151;">
+                                    <i class="fas fa-check" style="width: 16px; color: #10b981;"></i> Encrypted and secure platform
+                                </li>
+                            </ul>
+                            
+                            <button onclick="bookConsultation('anonymous')" style="width: 100%; padding: 16px 24px; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-size: 16px; color: white; background: linear-gradient(135deg, #3b82f6, #1d4ed8);">
+                                Book Anonymous Session
+                            </button>
+                        </div>
+                    </div>
+
+                    <div style="background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); transition: all 0.4s ease; border: 3px solid #10b981;">
+                        <div style="padding: 32px 32px 24px; text-align: center; background: linear-gradient(135deg, #d1fae5, #a7f3d0);">
+                            <div style="width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; color: white; margin: 0 auto 24px; background: linear-gradient(135deg, #10b981, #059669);">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 16px; color: #1f2937;">Online Video Session</h3>
+                            <div style="font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #065f46;">₹600-1000 <span style="font-size: 16px; font-weight: 500; color: #6b7280;">per session</span></div>
+                        </div>
+                        
+                        <div style="padding: 0 32px 32px;">
+                            <p style="margin-bottom: 24px;">Face-to-face video consultation from the comfort of your home with licensed professionals.</p>
+                            
+                            <ul style="list-style: none; margin-bottom: 32px;">
+                                <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 14px; color: #374151;">
+                                    <i class="fas fa-check" style="width: 16px; color: #10b981;"></i> HD video quality
+                                </li>
+                                <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 14px; color: #374151;">
+                                    <i class="fas fa-check" style="width: 16px; color: #10b981;"></i> Secure and private platform
+                                </li>
+                                <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 14px; color: #374151;">
+                                    <i class="fas fa-check" style="width: 16px; color: #10b981;"></i> Session recordings available
+                                </li>
+                            </ul>
+                            
+                            <button onclick="bookConsultation('video')" style="width: 100%; padding: 16px 24px; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-size: 16px; color: white; background: linear-gradient(135deg, #10b981, #059669);">
+                                Book Video Session
+                            </button>
+                        </div>
+                    </div>
+
+                    <div style="background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); transition: all 0.4s ease; border: 3px solid #8b5cf6;">
+                        <div style="padding: 32px 32px 24px; text-align: center; background: linear-gradient(135deg, #f3e8ff, #e9d5ff);">
+                            <div style="width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; color: white; margin: 0 auto 24px; background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 16px; color: #1f2937;">Face-to-Face Session</h3>
+                            <div style="font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #7c3aed;">₹800-1200 <span style="font-size: 16px; font-weight: 500; color: #6b7280;">per session</span></div>
+                        </div>
+                        
+                        <div style="padding: 0 32px 32px;">
+                            <p style="margin-bottom: 24px;">In-person consultation at our partner clinics across major Indian cities for personal interaction.</p>
+                            
+                            <ul style="list-style: none; margin-bottom: 32px;">
+                                <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 14px; color: #374151;">
+                                    <i class="fas fa-check" style="width: 16px; color: #10b981;"></i> Personal, face-to-face interaction
+                                </li>
+                                <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 14px; color: #374151;">
+                                    <i class="fas fa-check" style="width: 16px; color: #10b981;"></i> Clinics in 25+ cities
+                                </li>
+                                <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 14px; color: #374151;">
+                                    <i class="fas fa-check" style="width: 16px; color: #10b981;"></i> Comfortable, private environment
+                                </li>
+                            </ul>
+                            
+                            <button onclick="bookConsultation('face-to-face')" style="width: 100%; padding: 16px 24px; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-size: 16px; color: white; background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+                                Book In-Person Session
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- WELLNESS PAGE -->
+    <div id="wellness" class="page">
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="gradient-text">Wellness & Growth</span><br>
+                        <span>Interactive Tools</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Engage with stress relief games and wellness exercises designed to support your mental health journey.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <!-- Breathing Exercise -->
+                <div class="game-container">
+                    <div class="game-header">
+                        <h3 class="game-title">Guided Breathing Exercise</h3>
+                        <p class="game-description">Follow the breathing circle to practice deep, calming breaths</p>
+                    </div>
+                    
+                    <div class="breathing-circle" id="breathingCircle">
+                        Breathe
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <button class="btn btn-primary" onclick="startBreathingExercise()" id="breathingBtn">
+                            <i class="fas fa-play"></i> Start Breathing Exercise
+                        </button>
+                        <p style="margin-top: 16px; color: #6b7280; font-size: 14px;">
+                            Duration: <span id="breathingTimer">0:00</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Memory Game -->
+                <div class="game-container">
+                    <div class="game-header">
+                        <h3 class="game-title">Memory Wellness Game</h3>
+                        <p class="game-description">Improve focus and reduce anxiety with this calming memory matching game</p>
+                    </div>
+                    
+                    <div class="memory-grid" id="memoryGrid">
+                        <!-- Memory cards will be generated by JavaScript -->
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <p style="margin-bottom: 16px; color: #6b7280;">
+                            Matches: <span id="matchCount">0</span> | Moves: <span id="moveCount">0</span>
+                        </p>
+                        <button class="btn btn-primary" onclick="startMemoryGame()">
+                            <i class="fas fa-refresh"></i> New Game
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mood Tracker -->
+                <div class="game-container">
+                    <div class="game-header">
+                        <h3 class="game-title">Daily Mood Tracker</h3>
+                        <p class="game-description">Track your daily mood to better understand your emotional patterns</p>
+                    </div>
+                    
+                    <div class="mood-tracker">
+                        <div class="mood-emoji" onclick="selectMood(1)" data-mood="1" title="Very Sad">😢</div>
+                        <div class="mood-emoji" onclick="selectMood(2)" data-mood="2" title="Sad">😔</div>
+                        <div class="mood-emoji" onclick="selectMood(3)" data-mood="3" title="Neutral">😐</div>
+                        <div class="mood-emoji" onclick="selectMood(4)" data-mood="4" title="Happy">😊</div>
+                        <div class="mood-emoji" onclick="selectMood(5)" data-mood="5" title="Very Happy">😄</div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 24px;">
+                        <p id="moodMessage" style="color: #6b7280; margin-bottom: 16px;">How are you feeling today?</p>
+                        <button class="btn btn-success" onclick="saveMood()" id="saveMoodBtn" style="display: none;">
+                            <i class="fas fa-save"></i> Save Today's Mood
+                        </button>
+                    </div>
+                    
+                    <div style="margin-top: 24px;">
+                        <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 12px;">This Week's Mood Trend</h4>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="moodProgress" style="width: 60%;"></div>
+                        </div>
+                        <p style="font-size: 14px; color: #6b7280; text-align: center;">Average mood this week: Good</p>
+                    </div>
+                </div>
+
+                <!-- Stress Relief Activities -->
+                <div class="game-container">
+                    <div class="game-header">
+                        <h3 class="game-title">Quick Stress Relief Activities</h3>
+                        <p class="game-description">Simple exercises you can do anywhere to reduce stress and anxiety</p>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; text-align: center;">
+                            <div style="font-size: 32px; margin-bottom: 12px;">🧘‍♀️</div>
+                            <h4 style="font-weight: 600; margin-bottom: 8px;">5-Minute Meditation</h4>
+                            <p style="font-size: 14px; color: #6b7280; margin-bottom: 16px;">Quick mindfulness session</p>
+                            <button class="btn btn-secondary" onclick="startActivity('meditation')">Start</button>
+                        </div>
+                        
+                        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; text-align: center;">
+                            <div style="font-size: 32px; margin-bottom: 12px;">💪</div>
+                            <h4 style="font-weight: 600; margin-bottom: 8px;">Desk Stretches</h4>
+                            <p style="font-size: 14px; color: #6b7280; margin-bottom: 16px;">Relieve physical tension</p>
+                            <button class="btn btn-secondary" onclick="startActivity('stretches')">Start</button>
+                        </div>
+                        
+                        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; text-align: center;">
+                            <div style="font-size: 32px; margin-bottom: 12px;">📝</div>
+                            <h4 style="font-weight: 600; margin-bottom: 8px;">Gratitude Journal</h4>
+                            <p style="font-size: 14px; color: #6b7280; margin-bottom: 16px;">Write 3 things you're grateful for</p>
+                            <button class="btn btn-secondary" onclick="startActivity('gratitude')">Start</button>
+                        </div>
+                        
+                        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; text-align: center;">
+                            <div style="font-size: 32px; margin-bottom: 12px;">🎵</div>
+                            <h4 style="font-weight: 600; margin-bottom: 8px;">Calming Sounds</h4>
+                            <p style="font-size: 14px; color: #6b7280; margin-bottom: 16px;">Nature sounds for relaxation</p>
+                            <button class="btn btn-secondary" onclick="startActivity('sounds')">Start</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Tracking -->
+                <div class="game-container">
+                    <div class="game-header">
+                        <h3 class="game-title">Your Wellness Progress</h3>
+                        <p class="game-description">Track your engagement with wellness activities</p>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                        <div class="stat-item">
+                            <div class="stat-value" id="wellnessStreak">3</div>
+                            <div class="stat-name">Day Streak</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="activitiesCompleted">12</div>
+                            <div class="stat-name">Activities Completed</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="minutesPracticed">45</div>
+                            <div class="stat-name">Minutes Practiced</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="wellnessLevel">2</div>
+                            <div class="stat-name">Wellness Level</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 24px;">
+                        <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 12px;">Weekly Goal Progress</h4>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="weeklyProgress" style="width: 75%;"></div>
+                        </div>
+                        <p style="font-size: 14px; color: #6b7280; text-align: center; margin-top: 8px;">75% complete - 3 more activities to reach your weekly goal!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- DASHBOARD PAGE -->
+    <div id="dashboard" class="page">
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="gradient-text">Your Dashboard</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Track your mental health journey, view your activities, and manage your bookings all in one place.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="dashboard-section">
+                    <div class="dashboard-header">
+                        <h3 class="dashboard-title">Your Mental Health Journey</h3>
+                    </div>
+                    <div class="dashboard-stats">
+                        <div class="stat-item">
+                            <div class="stat-value" id="dashboardCommunities">0</div>
+                            <div class="stat-name">Communities Joined</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="dashboardConsultations">0</div>
+                            <div class="stat-name">Consultations Booked</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="dashboardGamesPlayed">0</div>
+                            <div class="stat-name">Wellness Games Played</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="dashboardDaysActive">1</div>
+                            <div class="stat-name">Days Active</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <div class="dashboard-header">
+                        <h3 class="dashboard-title">Your Community Memberships</h3>
+                    </div>
+                    <div id="communityMemberships">
+                        <p style="color: #6b7280; text-align: center; padding: 40px;">
+                            You haven't joined any communities yet. <a href="#" onclick="showPage('community')" style="color: #3b82f6;">Explore communities</a>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <div class="dashboard-header">
+                        <h3 class="dashboard-title">Consultation History</h3>
+                    </div>
+                    <div id="consultationHistory">
+                        <p style="color: #6b7280; text-align: center; padding: 40px;">
+                            No consultations booked yet. <a href="#" onclick="showPage('consultation')" style="color: #3b82f6;">Book your first session</a>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <div class="dashboard-header">
+                        <h3 class="dashboard-title">Recent Activities</h3>
+                    </div>
+                    <div id="activityHistory">
+                        <p style="color: #6b7280; text-align: center; padding: 40px;">
+                            No activities yet. Start using MindLift features to see your activity history here.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- PROFILE PAGE -->
+    <div id="profile" class="page">
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="gradient-text">Your Profile</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Manage your account settings and preferences to personalize your MindLift experience.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="dashboard-section">
+                    <div class="dashboard-header">
+                        <h3 class="dashboard-title">Profile Information</h3>
+                    </div>
+                    
+                    <form id="profileForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="profileName">Full Name</label>
+                                <input type="text" id="profileName" class="form-input" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="profileEmail">Email</label>
+                                <input type="email" id="profileEmail" class="form-input" readonly>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="profileAge">Age</label>
+                                <input type="number" id="profileAge" class="form-input" min="13" max="100">
+                            </div>
+                            <div class="form-group">
+                                <label for="profileGender">Gender</label>
+                                <select id="profileGender" class="form-select">
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="non-binary">Non-binary</option>
+                                    <option value="prefer-not-to-say">Prefer not to say</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="profileStudyField">Field of Study</label>
+                            <input type="text" id="profileStudyField" class="form-input" placeholder="e.g., Computer Science, Medicine, Arts">
+                        </div>
+                        
+                        <div style="display: flex; gap: 16px; margin-top: 32px;">
+                            <button type="button" class="btn btn-primary" onclick="updateProfile()">
+                                <i class="fas fa-save"></i> Update Profile
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="resetProfileForm()">
+                                <i class="fas fa-undo"></i> Reset
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2 style="text-align: center; margin-bottom: 24px;">Welcome Back to MindLift</h2>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" class="form-input" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 16px;">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+                
+                <p style="text-align: center; color: #6b7280;">
+                    Don't have an account? 
+                    <a href="#" onclick="closeModal('loginModal'); showRegisterModal();" style="color: #3b82f6;">Sign up here</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <h2 style="text-align: center; margin-bottom: 24px;">Join MindLift Community</h2>
+            
+            <form id="registerForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="registerFirstName">First Name</label>
+                        <input type="text" id="registerFirstName" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerLastName">Last Name</label>
+                        <input type="text" id="registerLastName" class="form-input" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" class="form-input" required minlength="8">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="registerAge">Age</label>
+                        <input type="number" id="registerAge" class="form-input" min="13" max="100" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerGender">Gender</label>
+                        <select id="registerGender" class="form-select">
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="non-binary">Non-binary</option>
+                            <option value="prefer-not-to-say">Prefer not to say</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-checkbox">
+                    <input type="checkbox" id="agreeTerms" required>
+                    <label for="agreeTerms">I agree to the Terms of Service and Privacy Policy</label>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 16px;">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </button>
+                
+                <p style="text-align: center; color: #6b7280;">
+                    Already have an account? 
+                    <a href="#" onclick="closeModal('registerModal'); showLoginModal();" style="color: #3b82f6;">Login here</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Community Join Modal -->
+    <div id="communityJoinModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('communityJoinModal')">&times;</span>
+            <h2 style="text-align: center; margin-bottom: 24px;">Join Community</h2>
+            
+            <div id="communityJoinContent">
+                <div style="text-align: center; margin-bottom: 24px;">
+                    <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #16a34a, #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; color: white; margin: 0 auto 16px;">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 id="communityJoinTitle">Community Name</h3>
+                    <p style="color: #6b7280;">Join this supportive community to connect with peers who understand your experiences.</p>
+                </div>
+                
+                <form id="communityJoinForm">
+                    <div class="form-group">
+                        <label for="joinReason">Why do you want to join this community? (Optional)</label>
+                        <textarea id="joinReason" class="form-textarea" placeholder="Share what brings you to this community..."></textarea>
+                    </div>
+                    
+                    <div class="form-checkbox">
+                        <input type="checkbox" id="communityGuidelines" required>
+                        <label for="communityGuidelines">I agree to follow the community guidelines and maintain a respectful, supportive environment</label>
+                    </div>
+                    
+                    <div style="display: flex; gap: 16px; margin-top: 24px;">
+                        <button type="submit" class="btn btn-success" style="flex: 1;">
+                            <i class="fas fa-users"></i> Join Community
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="closeModal('communityJoinModal')">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Consultation Booking Modal -->
+    <div id="consultationBookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('consultationBookingModal')">&times;</span>
+            <h2 style="text-align: center; margin-bottom: 24px;">Book Consultation</h2>
+            
+            <div id="consultationBookingContent">
+                <div style="text-align: center; margin-bottom: 24px;">
+                    <div id="consultationTypeIcon" style="width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; color: white; margin: 0 auto 16px;">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3 id="consultationTypeTitle">Consultation Type</h3>
+                    <p id="consultationTypeDescription" style="color: #6b7280;">Professional mental health support tailored to your needs.</p>
+                </div>
+                
+                <form id="consultationBookingForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="preferredDate">Preferred Date</label>
+                            <input type="date" id="preferredDate" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="preferredTime">Preferred Time</label>
+                            <select id="preferredTime" class="form-select" required>
+                                <option value="">Select Time</option>
+                                <option value="09:00">9:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="14:00">2:00 PM</option>
+                                <option value="15:00">3:00 PM</option>
+                                <option value="16:00">4:00 PM</option>
+                                <option value="17:00">5:00 PM</option>
+                                <option value="18:00">6:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="consultationReason">What would you like to discuss? (Optional)</label>
+                        <textarea id="consultationReason" class="form-textarea" placeholder="Share what brings you to seek professional support..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="urgencyLevel">Urgency Level</label>
+                        <select id="urgencyLevel" class="form-select" required>
+                            <option value="">Select urgency</option>
+                            <option value="low">Low - General support and guidance</option>
+                            <option value="medium">Medium - Ongoing concerns affecting daily life</option>
+                            <option value="high">High - Urgent support needed</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-checkbox">
+                        <input type="checkbox" id="consultationTerms" required>
+                        <label for="consultationTerms">I understand the consultation terms and cancellation policy</label>
+                    </div>
+                    
+                    <div style="display: flex; gap: 16px; margin-top: 24px;">
+                        <button type="submit" class="btn btn-primary" style="flex: 1;">
+                            <i class="fas fa-calendar-check"></i> Book Consultation
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="closeModal('consultationBookingModal')">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency Modal -->
+    <div id="emergencyModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('emergencyModal')">&times;</span>
+            <h2 style="display: flex; align-items: center; gap: 12px; color: #dc2626; margin-bottom: 20px;">
+                <i class="fas fa-exclamation-triangle"></i> Emergency Support Resources
+            </h2>
+            <div style="background: #fef2f2; border: 1px solid #fecaca; padding: 16px; border-radius: 8px; margin-bottom: 24px;">
+                <p style="color: #dc2626; font-weight: 600;">
+                    If you're in immediate danger or having thoughts of self-harm, please reach out for help immediately.
+                </p>
+            </div>
+            
+            <h4 style="font-weight: 600; margin-bottom: 16px;">Crisis Helplines in India (24/7):</h4>
+            <div style="display: grid; gap: 16px;">
+                <div style="background: #fef2f2; border: 1px solid #fecaca; padding: 16px; border-radius: 8px;">
+                    <strong style="color: #dc2626;">AASRA</strong><br>
+                    <span style="font-size: 14px; color: #6b7280;">24/7 suicide prevention helpline</span><br>
+                    <span style="font-family: monospace; font-size: 18px; color: #dc2626; font-weight: 600;">91529 87821</span>
+                </div>
+                
+                <div style="background: #fef2f2; border: 1px solid #fecaca; padding: 16px; border-radius: 8px;">
+                    <strong style="color: #dc2626;">Vandrevala Foundation</strong><br>
+                    <span style="font-size: 14px; color: #6b7280;">Mental health support and crisis intervention</span><br>
+                    <span style="font-family: monospace; font-size: 18px; color: #dc2626; font-weight: 600;">9999 666 555</span>
+                </div>
+            </div>
+            
+            <div style="background: #eff6ff; border: 1px solid #bfdbfe; padding: 16px; border-radius: 8px; margin-top: 24px;">
+                <p style="color: #1e40af; font-weight: 600; text-align: center;">
+                    Remember: You are not alone, and help is available 24/7. Your life matters.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <span id="notificationText"></span>
+    </div>
+
+    <script>
+        // Global variables
+        let currentUser = null;
+        let userCommunities = [];
+        let userConsultations = [];
+        let userActivities = [];
+        let isTyping = false;
+        let breathingInterval = null;
+        let breathingTimer = 0;
+        let breathingTimerInterval = null;
+        let memoryCards = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let moveCount = 0;
+        let selectedMood = null;
+
+        // Bot responses with crisis detection
+        const botResponses = {
+            crisis: [
+                "I'm very concerned about what you're sharing. Your life has value and meaning. Please reach out to a crisis helpline immediately: AASRA 91529 87821. You don't have to go through this alone.",
+                "What you're feeling right now is temporary, even though it doesn't feel that way. Please contact emergency services or a crisis helpline right now. AASRA: 91529 87821. Your life matters."
+            ],
+            anxiety: [
+                "I can hear that you're feeling anxious right now. That's completely understandable. What usually helps you feel a bit more grounded?",
+                "Anxiety can be really overwhelming. You're not alone in feeling this way. Have you tried any breathing exercises before?"
+            ],
+            depression: [
+                "I can hear that you're going through something really difficult. These feelings are valid, and it's important that you get proper support.",
+                "What you're experiencing sounds overwhelming. It takes strength to reach out, and I'm glad you did."
+            ],
+            stress: [
+                "It sounds like you're dealing with a lot of stress right now. That's completely understandable. What's been weighing on your mind the most?",
+                "Stress affects all of us differently. What kind of support would be most helpful for you right now?"
+            ],
+            general: [
+                "I'm here to listen and support you. How are you feeling right now?",
+                "Thank you for reaching out. What's been on your mind lately?",
+                "I'm glad you're here. What would you like to talk about today?"
+            ]
+        };
+
+        // Crisis keywords for detection
+        const crisisKeywords = [
+            'suicide', 'kill myself', 'end it all', 'self harm', 'hurt myself', 'not worth living', 'better off dead', 'want to die',
+            'आत्महत्या', 'मरना चाहता', 'जीना नहीं चाहता',
+            'ಆತ್ಮಹತ್ಯೆ', 'ಸಾಯಲು ಅನಿಸುತ್ತದೆ',
+            'আত্মহত্যা', 'মরতে চাই'
+        ];
+
+        // Memory game emojis
+        const memoryEmojis = ['🌸', '🌺', '🌻', '🌷', '🌹', '🌼', '🍀', '🌿'];
+
+        // Utility Functions
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notificationText');
+            
+            notification.className = `notification ${type} show`;
+            notificationText.textContent = message;
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000);
+        }
+
+        function showModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function showEmergencyModal() {
+            showModal('emergencyModal');
+        }
+
+        // Page Navigation
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            document.getElementById(pageId).classList.add('active');
+            
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            const activeLink = Array.from(navLinks).find(link => 
+                link.textContent.toLowerCase().includes(pageId) || 
+                (pageId === 'home' && link.textContent === 'Home')
+            );
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+            
+            window.scrollTo(0, 0);
+        }
+
+        function checkAuthAndNavigate(pageId) {
+            if (!currentUser) {
+                showNotification('Please login or register to access this feature', 'warning');
+                showLoginModal();
+                return;
+            }
+            showPage(pageId);
+        }
+
+        // Authentication Functions
+        function showLoginModal() {
+            showModal('loginModal');
+        }
+
+        function showRegisterModal() {
+            showModal('registerModal');
+        }
+
+        function toggleUserDropdown() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        function login(userData) {
+            currentUser = userData;
+            
+            // Update UI
+            document.getElementById('authSection').style.display = 'none';
+            document.getElementById('userSection').style.display = 'block';
+            document.getElementById('userAvatar').textContent = userData.firstName.charAt(0).toUpperCase();
+            
+            // Load user data
+            loadUserProfile();
+            updateDashboard();
+            
+            showNotification(`Welcome back, ${userData.firstName}!`, 'success');
+        }
+
+        function logout() {
+            currentUser = null;
+            userCommunities = [];
+            userConsultations = [];
+            userActivities = [];
+            
+            // Update UI
+            document.getElementById('authSection').style.display = 'flex';
+            document.getElementById('userSection').style.display = 'none';
+            document.getElementById('userDropdown').classList.remove('show');
+            
+            showPage('home');
+            showNotification('You have been logged out successfully', 'info');
+        }
+
+        // Wellness Game Functions
+        function startBreathingExercise() {
+            const circle = document.getElementById('breathingCircle');
+            const btn = document.getElementById('breathingBtn');
+            const timer = document.getElementById('breathingTimer');
+            
+            if (breathingInterval) {
+                // Stop breathing exercise
+                clearInterval(breathingInterval);
+                clearInterval(breathingTimerInterval);
+                breathingInterval = null;
+                breathingTimerInterval = null;
+                circle.classList.remove('inhale', 'exhale');
+                circle.textContent = 'Breathe';
+                btn.innerHTML = '<i class="fas fa-play"></i> Start Breathing Exercise';
+                breathingTimer = 0;
+                timer.textContent = '0:00';
+                return;
+            }
+            
+            // Start breathing exercise
+            btn.innerHTML = '<i class="fas fa-stop"></i> Stop Exercise';
+            breathingTimer = 0;
+            
+            breathingTimerInterval = setInterval(() => {
+                breathingTimer++;
+                const minutes = Math.floor(breathingTimer / 60);
+                const seconds = breathingTimer % 60;
+                timer.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
+            
+            let isInhaling = true;
+            breathingInterval = setInterval(() => {
+                if (isInhaling) {
+                    circle.classList.remove('exhale');
+                    circle.classList.add('inhale');
+                    circle.textContent = 'Inhale';
+                } else {
+                    circle.classList.remove('inhale');
+                    circle.classList.add('exhale');
+                    circle.textContent = 'Exhale';
+                }
+                isInhaling = !isInhaling;
+            }, 4000);
+            
+            if (currentUser) {
+                addActivity('wellness_breathing', 'Completed breathing exercise');
+            }
+        }
+
+        function startMemoryGame() {
+            const grid = document.getElementById('memoryGrid');
+            memoryCards = [];
+            flippedCards = [];
+            matchedPairs = 0;
+            moveCount = 0;
+            
+            // Create card pairs
+            const cardPairs = [...memoryEmojis, ...memoryEmojis];
+            cardPairs.sort(() => Math.random() - 0.5);
+            
+            grid.innerHTML = '';
+            
+            cardPairs.forEach((emoji, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.dataset.emoji = emoji;
+                card.dataset.index = index;
+                card.addEventListener('click', flipCard);
+                grid.appendChild(card);
+                memoryCards.push(card);
+            });
+            
+            updateMemoryStats();
+        }
+
+        function flipCard(event) {
+            const card = event.target;
+            
+            if (card.classList.contains('flipped') || card.classList.contains('matched') || flippedCards.length >= 2) {
+                return;
+            }
+            
+            card.classList.add('flipped');
+            card.textContent = card.dataset.emoji;
+            flippedCards.push(card);
+            
+            if (flippedCards.length === 2) {
+                moveCount++;
+                updateMemoryStats();
+                
+                setTimeout(() => {
+                    if (flippedCards[0].dataset.emoji === flippedCards[1].dataset.emoji) {
+                        flippedCards.forEach(c => c.classList.add('matched'));
+                        matchedPairs++;
+                        
+                        if (matchedPairs === memoryEmojis.length) {
+                            showNotification('Congratulations! You completed the memory game!', 'success');
+                            if (currentUser) {
+                                addActivity('wellness_memory', 'Completed memory game');
+                            }
+                        }
+                    } else {
+                        flippedCards.forEach(c => {
+                            c.classList.remove('flipped');
+                            c.textContent = '';
+                        });
+                    }
+                    flippedCards = [];
+                }, 1000);
+            }
+        }
+
+        function updateMemoryStats() {
+            document.getElementById('matchCount').textContent = matchedPairs;
+            document.getElementById('moveCount').textContent = moveCount;
+        }
+
+        function selectMood(moodValue) {
+            selectedMood = moodValue;
+            
+            // Update UI
+            document.querySelectorAll('.mood-emoji').forEach(emoji => {
+                emoji.classList.remove('selected');
+            });
+            
+            document.querySelector(`[data-mood="${moodValue}"]`).classList.add('selected');
+            
+            const messages = {
+                1: "I'm sorry you're feeling this way. Remember, it's okay to have difficult days.",
+                2: "It's tough when you're feeling down. Would you like to try a breathing exercise?",
+                3: "Neutral days are perfectly normal. How can we make today a bit better?",
+                4: "I'm glad you're feeling good today! What's contributing to your positive mood?",
+                5: "Wonderful! It's great to see you feeling so positive today!"
+            };
+            
+            document.getElementById('moodMessage').textContent = messages[moodValue];
+            document.getElementById('saveMoodBtn').style.display = 'block';
+        }
+
+        function saveMood() {
+            if (!selectedMood) return;
+            
+            showNotification('Mood saved successfully! Keep tracking your daily emotions.', 'success');
+            document.getElementById('saveMoodBtn').style.display = 'none';
+            
+            if (currentUser) {
+                addActivity('wellness_mood', `Recorded mood: ${selectedMood}/5`);
+            }
+            
+            // Reset selection
+            document.querySelectorAll('.mood-emoji').forEach(emoji => {
+                emoji.classList.remove('selected');
+            });
+            selectedMood = null;
+            document.getElementById('moodMessage').textContent = 'How are you feeling today?';
+        }
+
+        function startActivity(activityType) {
+            const activities = {
+                meditation: {
+                    title: '5-Minute Meditation',
+                    message: 'Great choice! Find a comfortable position and focus on your breathing for the next 5 minutes.'
+                },
+                stretches: {
+                    title: 'Desk Stretches',
+                    message: 'Perfect! Try neck rolls, shoulder shrugs, and gentle spinal twists to release tension.'
+                },
+                gratitude: {
+                    title: 'Gratitude Journal',
+                    message: 'Wonderful! Take a moment to write down three things you\'re grateful for today.'
+                },
+                sounds: {
+                    title: 'Calming Sounds',
+                    message: 'Excellent! Close your eyes and imagine peaceful nature sounds - ocean waves, forest birds, or gentle rain.'
+                }
+            };
+            
+            const activity = activities[activityType];
+            showNotification(`${activity.title}: ${activity.message}`, 'success');
+            
+            if (currentUser) {
+                addActivity('wellness_activity', `Started ${activity.title}`);
+            }
+        }
+
+        // Form Handlers
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // Simulate login
+            const userData = {
+                id: 1,
+                firstName: 'Student',
+                lastName: 'User',
+                email: email,
+                age: 20,
+                gender: 'prefer-not-to-say',
+                studyField: 'Computer Science'
+            };
+            
+            login(userData);
+            closeModal('loginModal');
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const firstName = document.getElementById('registerFirstName').value;
+            const lastName = document.getElementById('registerLastName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const age = document.getElementById('registerAge').value;
+            const gender = document.getElementById('registerGender').value;
+            
+            // Simulate registration
+            const userData = {
+                id: Date.now(),
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                age: parseInt(age),
+                gender: gender,
+                studyField: ''
+            };
+            
+            login(userData);
+            closeModal('registerModal');
+            showNotification('Account created successfully! Welcome to MindLift!', 'success');
+        });
+
+        // Community Functions
+        function joinCommunity(communityName) {
+            if (!currentUser) {
+                showNotification('Please login to join communities', 'warning');
+                showLoginModal();
+                return;
+            }
+            
+            document.getElementById('communityJoinTitle').textContent = communityName;
+            showModal('communityJoinModal');
+        }
+
+        document.getElementById('communityJoinForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const communityName = document.getElementById('communityJoinTitle').textContent;
+            const reason = document.getElementById('joinReason').value;
+            
+            const membership = {
+                id: Date.now(),
+                name: communityName,
+                joinedDate: new Date().toISOString().split('T')[0],
+                reason: reason,
+                status: 'active'
+            };
+            
+            userCommunities.push(membership);
+            addActivity('community_join', `Joined ${communityName} community`);
+            updateDashboard();
+            closeModal('communityJoinModal');
+            showNotification(`Successfully joined ${communityName}!`, 'success');
+            
+            // Reset form
+            document.getElementById('joinReason').value = '';
+            document.getElementById('communityGuidelines').checked = false;
+        });
+
+        // Consultation Functions
+        function bookConsultation(type) {
+            if (!currentUser) {
+                showNotification('Please login to book consultations', 'warning');
+                showLoginModal();
+                return;
+            }
+            
+            const typeConfig = {
+                anonymous: {
+                    title: 'Anonymous Online Session',
+                    description: 'Complete privacy with professional support. No identity required.',
+                    icon: 'fas fa-user-secret',
+                    background: 'linear-gradient(135deg, #3b82f6, #1d4ed8)'
+                },
+                video: {
+                    title: 'Online Video Session',
+                    description: 'Face-to-face video consultation from your home.',
+                    icon: 'fas fa-video',
+                    background: 'linear-gradient(135deg, #10b981, #059669)'
+                },
+                'face-to-face': {
+                    title: 'Face-to-Face Session',
+                    description: 'In-person consultation at our partner clinics.',
+                    icon: 'fas fa-handshake',
+                    background: 'linear-gradient(135deg, #8b5cf6, #7c3aed)'
+                }
+            };
+            
+            const config = typeConfig[type];
+            document.getElementById('consultationTypeTitle').textContent = config.title;
+            document.getElementById('consultationTypeDescription').textContent = config.description;
+            document.getElementById('consultationTypeIcon').style.background = config.background;
+            document.getElementById('consultationTypeIcon').innerHTML = `<i class="${config.icon}"></i>`;
+            
+            // Set minimum date to tomorrow
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            document.getElementById('preferredDate').min = tomorrow.toISOString().split('T')[0];
+            
+            showModal('consultationBookingModal');
+        }
+
+        document.getElementById('consultationBookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const consultationType = document.getElementById('consultationTypeTitle').textContent;
+            const date = document.getElementById('preferredDate').value;
+            const time = document.getElementById('preferredTime').value;
+            const reason = document.getElementById('consultationReason').value;
+            const urgency = document.getElementById('urgencyLevel').value;
+            
+            const consultation = {
+                id: Date.now(),
+                type: consultationType,
+                date: date,
+                time: time,
+                reason: reason,
+                urgency: urgency,
+                status: 'pending',
+                bookedDate: new Date().toISOString().split('T')[0]
+            };
+            
+            userConsultations.push(consultation);
+            addActivity('consultation_book', `Booked ${consultationType} for ${date} at ${time}`);
+            updateDashboard();
+            closeModal('consultationBookingModal');
+            showNotification('Consultation booked successfully! You will receive a confirmation email shortly.', 'success');
+            
+            // Reset form
+            document.getElementById('consultationBookingForm').reset();
+        });
+
+        // Chat Functions
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const messageText = messageInput.value.trim();
+            
+            if (!messageText || isTyping) return;
+            
+            addMessage(messageText, 'user');
+            messageInput.value = '';
+            
+            // Analyze message for crisis keywords
+            const lowerText = messageText.toLowerCase();
+            let responseType = 'general';
+            
+            if (crisisKeywords.some(keyword => lowerText.includes(keyword.toLowerCase()))) {
+                responseType = 'crisis';
+                setTimeout(() => showEmergencyModal(), 2000);
+            } else if (['anxious', 'anxiety', 'panic', 'worried', 'चिंता', 'ಆತಂಕ'].some(keyword => lowerText.includes(keyword))) {
+                responseType = 'anxiety';
+            } else if (['depressed', 'sad', 'hopeless', 'उदास', 'ದುಃಖ'].some(keyword => lowerText.includes(keyword))) {
+                responseType = 'depression';
+            } else if (['stressed', 'stress', 'pressure', 'तनाव', 'ಒತ್ತಡ'].some(keyword => lowerText.includes(keyword))) {
+                responseType = 'stress';
+            }
+            
+            showTypingIndicator();
+            
+            setTimeout(() => {
+                hideTypingIndicator();
+                const responses = botResponses[responseType];
+                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                addMessage(randomResponse, 'bot');
+                
+                if (currentUser) {
+                    addActivity('chat_message', 'Used AI companion for support');
+                }
+            }, 1500 + Math.random() * 1000);
+        }
+
+        function addMessage(text, sender) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.style.cssText = `
+                max-width: 85%; 
+                padding: 12px 16px; 
+                border-radius: 16px; 
+                ${sender === 'bot' ? 'background: #f3f4f6; color: #374151; align-self: flex-start;' : 'background: #3b82f6; color: white; align-self: flex-end;'}
+            `;
+            messageDiv.innerHTML = `<p>${text}</p>`;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            isTyping = true;
+            const chatMessages = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typingIndicator';
+            typingDiv.style.cssText = 'max-width: 85%; padding: 12px 16px; border-radius: 16px; background: #f3f4f6; color: #374151; align-self: flex-start;';
+            typingDiv.innerHTML = '<p>AI is typing...</p>';
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            isTyping = false;
+            const typingIndicator = document.getElementById('typingIndicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        // Profile Functions
+        function loadUserProfile() {
+            if (!currentUser) return;
+            
+            document.getElementById('profileName').value = `${currentUser.firstName} ${currentUser.lastName}`;
+            document.getElementById('profileEmail').value = currentUser.email;
+            document.getElementById('profileAge').value = currentUser.age || '';
+            document.getElementById('profileGender').value = currentUser.gender || '';
+            document.getElementById('profileStudyField').value = currentUser.studyField || '';
+        }
+
+        function updateProfile() {
+            if (!currentUser) return;
+            
+            currentUser.age = parseInt(document.getElementById('profileAge').value) || null;
+            currentUser.gender = document.getElementById('profileGender').value;
+            currentUser.studyField = document.getElementById('profileStudyField').value;
+            
+            showNotification('Profile updated successfully!', 'success');
+        }
+
+        function resetProfileForm() {
+            loadUserProfile();
+            showNotification('Profile form reset', 'info');
+        }
+
+        // Dashboard Functions
+        function addActivity(type, description) {
+            if (!currentUser) return;
+            
+            const activity = {
+                id: Date.now(),
+                type: type,
+                description: description,
+                date: new Date().toISOString().split('T')[0],
+                time: new Date().toLocaleTimeString()
+            };
+            
+            userActivities.unshift(activity);
+            if (userActivities.length > 10) {
+                userActivities = userActivities.slice(0, 10);
+            }
+        }
+
+        function updateDashboard() {
+            if (!currentUser) return;
+            
+            // Update stats
+            document.getElementById('dashboardCommunities').textContent = userCommunities.length;
+            document.getElementById('dashboardConsultations').textContent = userConsultations.length;
+            
+            // Update community memberships
+            const communityContainer = document.getElementById('communityMemberships');
+            if (userCommunities.length === 0) {
+                communityContainer.innerHTML = `
+                    <p style="color: #6b7280; text-align: center; padding: 40px;">
+                        You haven't joined any communities yet. <a href="#" onclick="showPage('community')" style="color: #3b82f6;">Explore communities</a>
+                    </p>
+                `;
+            } else {
+                communityContainer.innerHTML = userCommunities.map(community => `
+                    <div class="history-item">
+                        <div class="history-header">
+                            <span class="history-title">${community.name}</span>
+                            <span class="history-date">Joined: ${community.joinedDate}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span class="history-status status-active">Active Member</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            // Update consultation history
+            const consultationContainer = document.getElementById('consultationHistory');
+            if (userConsultations.length === 0) {
+                consultationContainer.innerHTML = `
+                    <p style="color: #6b7280; text-align: center; padding: 40px;">
+                        No consultations booked yet. <a href="#" onclick="showPage('consultation')" style="color: #3b82f6;">Book your first session</a>
+                    </p>
+                `;
+            } else {
+                consultationContainer.innerHTML = userConsultations.map(consultation => `
+                    <div class="history-item">
+                        <div class="history-header">
+                            <span class="history-title">${consultation.type}</span>
+                            <span class="history-date">${consultation.date} at ${consultation.time}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span class="history-status status-${consultation.status}">${consultation.status.charAt(0).toUpperCase() + consultation.status.slice(1)}</span>
+                            <span style="font-size: 12px; color: #6b7280;">Urgency: ${consultation.urgency}</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            // Update activity history
+            const activityContainer = document.getElementById('activityHistory');
+            if (userActivities.length === 0) {
+                activityContainer.innerHTML = `
+                    <p style="color: #6b7280; text-align: center; padding: 40px;">
+                        No activities yet. Start using MindLift features to see your activity history here.
+                    </p>
+                `;
+            } else {
+                activityContainer.innerHTML = userActivities.map(activity => `
+                    <div class="history-item">
+                        <div class="history-header">
+                            <span class="history-title">${activity.description}</span>
+                            <span class="history-date">${activity.date} at ${activity.time}</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+            
+            // Close user dropdown when clicking outside
+            if (!event.target.closest('.user-menu')) {
+                document.getElementById('userDropdown').classList.remove('show');
+            }
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('MindLift Enhanced initialized successfully! 🚀');
+            
+            // Set minimum date for consultation booking
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const dateInput = document.getElementById('preferredDate');
+            if (dateInput) {
+                dateInput.min = tomorrow.toISOString().split('T')[0];
+            }
+            
+            // Initialize memory game
+            startMemoryGame();
+        });
+    </script>
+</body>
+</html>
